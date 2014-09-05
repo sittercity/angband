@@ -1,48 +1,7 @@
 require 'spec_helper'
-require 'documentation/gherkin_listener'
-require 'gherkin/lexer/i18n_lexer'
+require 'documentation/api_documentor'
+require 'documentation/gherkin_finder'
 require 'pp'
-
-module Documentation
-  class APIDocumentor
-    def initialize(app)
-      @app = app
-      yield self if block_given?
-    end
-
-    def call(env)
-      response = @app.call(env)
-      if response[0] == 200 && env['REQUEST_METHOD'] == 'OPTIONS'
-        response[1]['Content-Type'] = 'application/vnd.gherkin'
-        response[2] = [Documentation::GherkinFinder.new(@files).call(env['PATH_INFO'])]
-      end
-      response
-    end
-
-    def configure(files)
-      @files = files
-    end
-  end
-
-  class GherkinFinder
-    def initialize(gherkin_files)
-      @gherkin_files = gherkin_files
-    end
-
-    def call(path_info)
-      output = ''
-
-      @gherkin_files.each do |file|
-        gherkin = File.read(file)
-        listener = Documentation::GherkinListener.new(path_info)
-        Gherkin::Lexer::I18nLexer.new(listener).scan(gherkin)
-        output += gherkin if listener.should_output?
-      end
-
-      output
-    end
-  end
-end
 
 describe Documentation::APIDocumentor do
   let(:app) { lambda { |env| response } }
