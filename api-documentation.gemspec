@@ -12,5 +12,5 @@ Gem::Specification.new do |s|
   s.files = Dir['lib/**/*.rb']
   s.require_paths = ['lib']
 
-  #s.add_runtime_dependency('muster', '~> 2.0')
+  s.add_runtime_dependency('gherkin', '~> 2.12')
 end
