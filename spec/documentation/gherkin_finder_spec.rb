@@ -25,6 +25,6 @@ describe Documentation::GherkinFinder do
   end
 
   it 'returns concatenated contents of the gherkin files' do
-    expect(subject.call(path_info)).to eq 'the file contents'
+    expect(subject.call(path_info)).to eq "the file\n\n contents"
   end
 end

@@ -29,7 +29,7 @@ describe Documentation::APIDocumentor do
         end
 
         it 'replaces the body' do
-          expect(middleware.call(env)[2].join('')).to eq File.read('spec/support/features/test.feature')
+          expect(middleware.call(env)[2].join('')).to eq File.read('spec/support/features/test.feature').strip
         end
 
         it 'sets a default content-type' do
