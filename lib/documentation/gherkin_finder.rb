@@ -14,10 +14,10 @@ module Documentation
         gherkin = File.read(file)
         listener = Documentation::GherkinListener.new(path_info)
         Gherkin::Lexer::I18nLexer.new(listener).scan(gherkin)
-        output += gherkin if listener.should_output?
+        output += "#{gherkin}\n\n" if listener.should_output?
       end
 
-      output
+      output.strip
     end
   end
 end
