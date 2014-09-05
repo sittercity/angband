@@ -18,7 +18,7 @@ describe Documentation::GherkinFinder do
   before :each do
     allow(File).to receive(:read).with(gherkin_files[0]).and_return('the file')
     allow(File).to receive(:read).with(gherkin_files[1]).and_return(' contents')
-    allow(Documentation::GherkinListener).to receive(:new).with(path_info).and_return(listener)
+    allow(Documentation::GherkinListener).to receive(:new).with(path_info, Gherkin::Lexer::I18nLexer::LANGUAGE_PATTERN).and_return(listener)
     allow(Gherkin::Lexer::I18nLexer).to receive(:new).with(listener).and_return(lexer)
     expect(lexer).to receive(:scan).with('the file')
     expect(lexer).to receive(:scan).with(' contents')

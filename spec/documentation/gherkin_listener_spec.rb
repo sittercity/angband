@@ -1,7 +1,8 @@
 require 'documentation/gherkin_listener'
+require 'gherkin/lexer/i18n_lexer'
 
 describe Documentation::GherkinListener do
-  subject(:listener) { described_class.new('/test') }
+  subject(:listener) { described_class.new('/test', Gherkin::Lexer::I18nLexer::LANGUAGE_PATTERN) }
 
   describe '#tag' do
     context 'when the tag matches' do
@@ -26,6 +27,20 @@ describe Documentation::GherkinListener do
       it 'should not output' do
         expect(listener.should_output?).to be false
       end
+    end
+  end
+
+  describe '#matched_language' do
+    context 'when the listener is notified about a language' do
+      before { listener.comment('# language: de', 1) }
+
+      it 'is that language' do
+        expect(listener.matched_language).to eq 'de'
+      end
+    end
+
+    context 'when the listener is not notified' do
+      specify { expect(listener.matched_language).to be nil }
     end
   end
 end

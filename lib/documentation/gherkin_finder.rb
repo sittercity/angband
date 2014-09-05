@@ -12,7 +12,7 @@ module Documentation
 
       @gherkin_files.each do |file|
         gherkin = File.read(file)
-        listener = Documentation::GherkinListener.new(path_info)
+        listener = Documentation::GherkinListener.new(path_info, Gherkin::Lexer::I18nLexer::LANGUAGE_PATTERN)
         Gherkin::Lexer::I18nLexer.new(listener).scan(gherkin)
         output += gherkin if listener.should_output?
       end

@@ -1,8 +1,16 @@
 module Documentation
   class GherkinListener
-    def initialize(path)
+    def initialize(path, language_pattern)
       @path = path
       @should_output = false
+      @language_pattern = language_pattern
+    end
+
+    def comment(text, line_number)
+      match = @language_pattern.match(text)
+      if match
+        @matched_language = match[2]
+      end
     end
 
     def tag(tag, line_number)
@@ -11,7 +19,9 @@ module Documentation
       end
     end
 
-    def method_missing(*)
+    attr_reader :matched_language
+
+    def method_missing(*args)
       #nope
     end
 
