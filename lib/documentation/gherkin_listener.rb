@@ -8,9 +8,11 @@ module Documentation
       @callbacks[event] = block
     end
 
-    def method_missing(method, *args)
-      callback = @callbacks[method]
-      callback.call(*args) if callback
+    [:comment, :tag, :feature, :background, :scenario, :scenario_outline, :examples, :step, :doc_string, :row, :eof, :uri, :syntax_error].each do |method|
+      define_method(method) do |*args|
+        callback = @callbacks[method]
+        callback.call(*args) if callback
+      end
     end
   end
 end

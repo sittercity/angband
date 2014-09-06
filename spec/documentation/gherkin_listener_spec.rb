@@ -5,8 +5,8 @@ describe Documentation::GherkinListener do
 
   it 'calls defined behavior with event arguments' do
     called = false
-    listener.on(:something) { |*args| called = true; expect(args).to eq [:a, :b] }
+    listener.on(:tag) { |*args| called = true; expect(args).to eq ['asdf'] }
 
-    expect { listener.something(:a, :b) }.to change { called }.to true
+    expect { listener.tag('asdf') }.to change { called }.to true
   end
 end
