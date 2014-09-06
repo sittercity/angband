@@ -10,7 +10,7 @@ describe Documentation::GherkinFinder do
   }
   let(:path_info) { '/the-path' }
 
-  let(:listener) { double(:gherkin_listener, :should_output? => true) }
+  let(:listener) { Documentation::GherkinListener.new }
   let(:lexer) { double(:lexer) }
 
   subject(:finder) { described_class.new(gherkin_files) }
@@ -18,13 +18,14 @@ describe Documentation::GherkinFinder do
   before :each do
     allow(File).to receive(:read).with(gherkin_files[0]).and_return('the file')
     allow(File).to receive(:read).with(gherkin_files[1]).and_return(' contents')
-    allow(Documentation::GherkinListener).to receive(:new).with(path_info).and_return(listener)
+    allow(Documentation::GherkinListener).to receive(:new).and_return(listener)
     allow(Gherkin::Lexer::I18nLexer).to receive(:new).with(listener).and_return(lexer)
-    expect(lexer).to receive(:scan).with('the file')
+
+    expect(lexer).to receive(:scan).with('the file') { listener.tag("@#{path_info}", 1) }
     expect(lexer).to receive(:scan).with(' contents')
   end
 
-  it 'returns concatenated contents of the gherkin files' do
-    expect(subject.call(path_info)).to eq "the file\n\n contents"
+  it "returns a list of gherkin files' contents" do
+    expect(subject.call(path_info)).to eq ['the file']
   end
 end

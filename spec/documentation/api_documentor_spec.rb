@@ -7,7 +7,7 @@ describe Documentation::APIDocumentor do
       'path/to/files'
     ]
   }
-  let(:gherkin_finder) { double(:gherkin_finder, :call => 'the-body')}
+  let(:gherkin_finder) { double(:gherkin_finder, :call => ['the-body'])}
 
   subject(:documentor) {
     described_class.new(app) do |doc|
