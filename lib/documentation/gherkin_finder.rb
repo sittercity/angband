@@ -8,16 +8,22 @@ module Documentation
     end
 
     def call(path_info)
-      output = ''
+      listener = Documentation::GherkinListener.new
+      lexer = Gherkin::Lexer::I18nLexer.new(listener)
 
-      @gherkin_files.each do |file|
-        gherkin = File.read(file)
-        listener = Documentation::GherkinListener.new(path_info)
-        Gherkin::Lexer::I18nLexer.new(listener).scan(gherkin)
-        output += "#{gherkin}\n\n" if listener.should_output?
+      listener.on(:tag) do |tag|
+        @path_matched = true if %r{^#{tag}$} === "@#{path_info}"
       end
 
-      output.strip
+      result = @gherkin_files.map do |file|
+        @path_matched = false
+        gherkin = File.read(file)
+        lexer.scan(gherkin)
+        gherkin if @path_matched
+      end
+
+      result.compact
     end
+
   end
 end

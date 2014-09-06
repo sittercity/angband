@@ -1,31 +1,12 @@
 require 'documentation/gherkin_listener'
 
 describe Documentation::GherkinListener do
-  subject(:listener) { described_class.new('/test') }
+  subject(:listener) { described_class.new }
 
-  describe '#tag' do
-    context 'when the tag matches' do
-      it 'should output' do
-        listener.tag('@/test', 1)
-        expect(listener.should_output?).to be true
-      end
+  it 'calls defined behavior with event arguments' do
+    called = false
+    listener.on(:something) { |*args| called = true; expect(args).to eq [:a, :b] }
 
-      context 'variable tag' do
-        it 'should output' do
-          listener.tag('@/.+', 1)
-          expect(listener.should_output?).to be true
-        end
-      end
-    end
-
-    context 'when the tag does not match' do
-      before :each do
-        listener.tag('@/nope', 1)
-      end
-
-      it 'should not output' do
-        expect(listener.should_output?).to be false
-      end
-    end
+    expect { listener.something(:a, :b) }.to change { called }.to true
   end
 end

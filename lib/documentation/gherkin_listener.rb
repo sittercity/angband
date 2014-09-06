@@ -1,22 +1,16 @@
 module Documentation
   class GherkinListener
-    def initialize(path)
-      @path = path
-      @should_output = false
+    def initialize
+      @callbacks = {}
     end
 
-    def tag(tag, line_number)
-      if %r{^#{tag}$} === "@#{@path}"
-        @should_output = true
-      end
+    def on(event, &block)
+      @callbacks[event] = block
     end
 
-    def method_missing(*)
-      #nope
-    end
-
-    def should_output?
-      @should_output
+    def method_missing(method, *args)
+      callback = @callbacks[method]
+      callback.call(*args) if callback
     end
   end
 end
