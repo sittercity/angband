@@ -1,4 +1,6 @@
+require 'documentation/formatter'
 require 'documentation/gherkin_finder'
+require 'rack/accept_headers'
 
 module Documentation
   class APIDocumentor
@@ -8,11 +10,15 @@ module Documentation
     end
 
     def call(env)
-      response = @app.call(env)
+      response = Rack::AcceptHeaders.new(@app).call(env)
 
       if options_request?(env) && successful?(response) && !cross_origin_request?(env)
-        response[1]['Content-Type'] = 'application/vnd.gherkin'
-        response[2] = [Documentation::GherkinFinder.new(@files).call(env['PATH_INFO']).join("\n\n").strip]
+        features  = Documentation::GherkinFinder.new(@files).call(env['PATH_INFO'])
+        formatter = Documentation::Formatter.new(env['rack-accept_headers.request'])
+
+        headers, content = formatter.call(features)
+        response[1].merge!(headers)
+        response[2] = [content]
       end
 
       response

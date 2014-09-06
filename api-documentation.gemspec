@@ -13,4 +13,6 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_runtime_dependency('gherkin', '~> 2.12')
+  s.add_runtime_dependency('mustache', '~> 0.99')
+  s.add_runtime_dependency('rack-accept_headers', '~> 0.5.0')
 end
