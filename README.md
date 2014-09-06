@@ -6,9 +6,9 @@ Rack middleware that renders the Gherkin features of your API endpoints.
 1. Specify the applicable feature files:
 
    ```ruby
-   require 'api-documentation'
+   require 'documentation/api_documentor'
 
-   use Documentation::ApiDocumentor do |docs|
+   use Documentation::APIDocumentor do |docs|
      docs.configure Dir['features/**/*.feature']
    end
    ```

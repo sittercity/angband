@@ -7,7 +7,12 @@ describe Documentation::APIDocumentor do
       'path/to/files'
     ]
   }
-  let(:gherkin_finder) { double(:gherkin_finder, :call => ['the-body'])}
+  let(:gherkin_finder) { double(:gherkin_finder, :call => features)}
+  let(:formatter) { double(:formatter, :call => [headers, content]) }
+
+  let(:content) { 'the-formatted-content' }
+  let(:features) { ['the-features'] }
+  let(:headers) { { 'the' => 'headers' } }
 
   subject(:documentor) {
     described_class.new(app) do |doc|
@@ -17,6 +22,7 @@ describe Documentation::APIDocumentor do
 
   before :each do
     allow(Documentation::GherkinFinder).to receive(:new).with(gherkin_files).and_return(gherkin_finder)
+    allow(Documentation::Formatter).to receive(:new).with(instance_of(Rack::AcceptHeaders::Request)).and_return(formatter)
   end
 
   context 'when the response code is 200' do
@@ -25,12 +31,13 @@ describe Documentation::APIDocumentor do
     context 'and the request method is OPTIONS' do
       let(:env) { {'REQUEST_METHOD' => 'OPTIONS'} }
 
-      it 'sets the content type to application/vnd.gherkin' do
-        expect(subject.call(env)[1]['Content-Type']).to eq 'application/vnd.gherkin'
+      it 'returns the formatted headers' do
+        expect(subject.call(env)[1]).to include(headers)
       end
 
       it 'sets the body to the output set by gherkin finder' do
-        expect(subject.call(env)[2]).to eq ['the-body']
+        expect(formatter).to receive(:call).with(features)
+        expect(subject.call(env)[2]).to eq ['the-formatted-content']
       end
     end
 
