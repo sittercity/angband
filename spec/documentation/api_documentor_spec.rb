@@ -62,4 +62,13 @@ describe Documentation::APIDocumentor do
       end
     end
   end
+
+  context 'when the response is to a cross-origin preflight request' do
+    let(:app) { lambda { |env| [200, {'Access-Control-Request-Method' => 'GET'}, []] } }
+    let(:env) { {'REQUEST_METHOD' => 'OPTIONS', 'HTTP_ACCESS_CONTROL_REQUEST_METHOD' => 'GET'} }
+
+    it 'passes on the app response' do
+      expect(subject.call(env)).to eq [200, { 'Access-Control-Request-Method' => 'GET' }, []]
+    end
+  end
 end
