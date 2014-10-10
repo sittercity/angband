@@ -2,12 +2,12 @@ require File.expand_path('../lib/angband/version.rb', __FILE__)
 
 Gem::Specification.new do |s|
   s.name = 'angband'
-  s.description = 'Self-Documenting APIs for Rack'
+  s.description = 'Self-Documenting APIs for Rack applications'
   s.version = Angband::VERSION
   s.authors = ['Sittercity']
   s.email = ['dev@sittercity.com']
   s.homepage = 'http://sittercity.com'
-  s.summary = 'Self-Documenting APIs for Rack'
+  s.summary = 'Self-Documenting APIs for Rack applications'
 
   s.files = Dir['lib/**/*.rb']
   s.require_paths = ['lib']
