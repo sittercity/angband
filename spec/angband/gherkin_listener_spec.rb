@@ -1,6 +1,6 @@
-require 'documentation/gherkin_listener'
+require 'angband/gherkin_listener'
 
-describe Documentation::GherkinListener do
+describe Angband::GherkinListener do
   subject(:listener) { described_class.new }
 
   it 'calls defined behavior with event arguments' do

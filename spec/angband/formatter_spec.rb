@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'documentation/formatter'
+require 'angband/formatter'
 
-describe Documentation::Formatter do
+describe Angband::Formatter do
   let(:accept_headers) { double(:accept_headers) }
 
   let(:gherkin_mime_type) { 'application/vnd.gherkin' }

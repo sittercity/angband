@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    api-documentation (0.0.1)
+    angband (1.0.0)
       gherkin (~> 2.12)
       mustache (~> 0.99)
       rack-accept_headers (~> 0.5.0)
@@ -44,7 +44,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  api-documentation!
+  angband!
   arg-that
   rack
   rspec

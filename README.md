@@ -1,14 +1,15 @@
+# Angband
 
-Rack middleware that renders the Gherkin features of your API endpoints.
+Rack middleware that renders the Gherkin features of your application.
 
-### Configuration
+## Configuration
 
 1. Specify the applicable feature files:
 
    ```ruby
-   require 'documentation/api_documentor'
+   require 'angband/documentation'
 
-   use Documentation::APIDocumentor do |docs|
+   use Angband::Documentation do |docs|
      docs.configure Dir['features/**/*.feature']
    end
    ```

@@ -1,14 +1,14 @@
-require 'documentation/gherkin_listener'
+require 'angband/gherkin_listener'
 require 'gherkin/lexer/i18n_lexer'
 
-module Documentation
+module Angband
   class GherkinFinder
     def initialize(gherkin_files)
       @gherkin_files = gherkin_files
     end
 
     def call(path_info)
-      listener = Documentation::GherkinListener.new
+      listener = Angband::GherkinListener.new
       lexer = Gherkin::Lexer::I18nLexer.new(listener)
 
       listener.on(:tag) do |tag|

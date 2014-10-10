@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'documentation/api_documentor'
+require 'angband/documentation'
 
-describe Documentation::APIDocumentor do
+describe Angband::Documentation do
   let(:gherkin_files) {
     [
       'path/to/files'
@@ -21,8 +21,8 @@ describe Documentation::APIDocumentor do
   }
 
   before :each do
-    allow(Documentation::GherkinFinder).to receive(:new).with(gherkin_files).and_return(gherkin_finder)
-    allow(Documentation::Formatter).to receive(:new).with(instance_of(Rack::AcceptHeaders::Request)).and_return(formatter)
+    allow(Angband::GherkinFinder).to receive(:new).with(gherkin_files).and_return(gherkin_finder)
+    allow(Angband::Formatter).to receive(:new).with(instance_of(Rack::AcceptHeaders::Request)).and_return(formatter)
   end
 
   context 'when the response code is 200' do

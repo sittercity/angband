@@ -1,6 +1,6 @@
 require 'mustache'
 
-module Documentation
+module Angband
   class Formatter
     def initialize(accept_headers)
       @accept_headers = accept_headers

@@ -1,13 +1,13 @@
-require File.expand_path('../lib/documentation/version.rb', __FILE__)
+require File.expand_path('../lib/angband/version.rb', __FILE__)
 
 Gem::Specification.new do |s|
-  s.name = 'api-documentation'
-  s.description = 'Self-Documenting APIs'
-  s.version = Documentation::VERSION
+  s.name = 'angband'
+  s.license = 'ISC'
+  s.version = Angband::VERSION
   s.authors = ['Sittercity']
   s.email = ['dev@sittercity.com']
   s.homepage = 'http://sittercity.com'
-  s.summary = 'Self-Documenting APIs'
+  s.summary = 'Self-Documenting APIs for Rack applications'
 
   s.files = Dir['lib/**/*.rb']
   s.require_paths = ['lib']

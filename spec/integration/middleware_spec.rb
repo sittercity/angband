@@ -1,9 +1,9 @@
 require 'spec_helper'
-require 'documentation/api_documentor'
-require 'documentation/gherkin_finder'
+require 'angband/documentation'
+require 'angband/gherkin_finder'
 require 'pp'
 
-describe Documentation::APIDocumentor do
+describe Angband::Documentation do
   let(:app) { lambda { |env| response } }
   let(:response) { [200, {}, []] }
   let(:env) { {} }
