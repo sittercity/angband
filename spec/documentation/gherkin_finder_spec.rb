@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'documentation/gherkin_finder'
+require 'angband/gherkin_finder'
 
-describe Documentation::GherkinFinder do
+describe Angband::GherkinFinder do
   let(:gherkin_files) {
     [
       'path/to/files',
@@ -10,7 +10,7 @@ describe Documentation::GherkinFinder do
   }
   let(:path_info) { '/the-path' }
 
-  let(:listener) { Documentation::GherkinListener.new }
+  let(:listener) { Angband::GherkinListener.new }
   let(:lexer) { double(:lexer) }
 
   subject(:finder) { described_class.new(gherkin_files) }
@@ -18,7 +18,7 @@ describe Documentation::GherkinFinder do
   before :each do
     allow(File).to receive(:read).with(gherkin_files[0]).and_return('the file')
     allow(File).to receive(:read).with(gherkin_files[1]).and_return(' contents')
-    allow(Documentation::GherkinListener).to receive(:new).and_return(listener)
+    allow(Angband::GherkinListener).to receive(:new).and_return(listener)
     allow(Gherkin::Lexer::I18nLexer).to receive(:new).with(listener).and_return(lexer)
 
     expect(lexer).to receive(:scan).with('the file') { listener.tag("@#{path_info}", 1) }

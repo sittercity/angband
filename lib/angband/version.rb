@@ -1,3 +1,3 @@
-module Documentation
+module Angband
   VERSION = '0.0.1'
 end

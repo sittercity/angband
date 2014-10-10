@@ -1,8 +1,8 @@
-require 'documentation/formatter'
-require 'documentation/gherkin_finder'
+require 'angband/formatter'
+require 'angband/gherkin_finder'
 require 'rack/accept_headers'
 
-module Documentation
+module Angband
   class APIDocumentor
     def initialize(app)
       @app = app
@@ -13,8 +13,8 @@ module Documentation
       response = Rack::AcceptHeaders.new(@app).call(env)
 
       if options_request?(env) && successful?(response) && !cross_origin_request?(env)
-        features  = Documentation::GherkinFinder.new(@files).call(env['PATH_INFO'])
-        formatter = Documentation::Formatter.new(env['rack-accept_headers.request'])
+        features  = Angband::GherkinFinder.new(@files).call(env['PATH_INFO'])
+        formatter = Angband::Formatter.new(env['rack-accept_headers.request'])
 
         headers, content = formatter.call(features)
         response[1].merge!(headers)

@@ -1,4 +1,4 @@
-module Documentation
+module Angband
   class GherkinListener
     def initialize
       @callbacks = {}
