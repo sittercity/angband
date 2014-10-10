@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'angband/api_documentor'
+require 'angband/documentation'
 
-describe Angband::APIDocumentor do
+describe Angband::Documentation do
   let(:gherkin_files) {
     [
       'path/to/files'

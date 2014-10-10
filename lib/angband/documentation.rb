@@ -3,7 +3,7 @@ require 'angband/gherkin_finder'
 require 'rack/accept_headers'
 
 module Angband
-  class APIDocumentor
+  class Documentation
     def initialize(app)
       @app = app
       yield self if block_given?
