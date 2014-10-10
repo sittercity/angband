@@ -2,6 +2,7 @@ require File.expand_path('../lib/angband/version.rb', __FILE__)
 
 Gem::Specification.new do |s|
   s.name = 'angband'
+  s.license = 'ISC'
   s.version = Angband::VERSION
   s.authors = ['Sittercity']
   s.email = ['dev@sittercity.com']
