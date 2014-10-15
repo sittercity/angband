@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.homepage = 'http://sittercity.com'
   s.summary = 'Self-Documenting APIs for Rack applications'
 
-  s.files = Dir['lib/**/*']
+  s.files = Dir['lib/**/*.rb', 'lib/**/*.mustache']
   s.require_paths = ['lib']
 
   s.add_runtime_dependency('gherkin', '~> 2.12')
