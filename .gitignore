@@ -1,3 +1,4 @@
 /binstubs
 /.bundle/ruby
 .swp*
+/*.gem
